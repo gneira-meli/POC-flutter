@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sdui_module/data/storage_data.dart';
+import 'package:sdui_module/models/component.dart';
+import 'package:sdui_module/render_widgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,6 +43,7 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.username}) : super(key: key);
 
   final String username;
+  final List<Component> components = StorageData.getData();
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -52,30 +56,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("Hi " + widget.username),
-      ),
-      body: Center(
+      body: Container(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Here we will implement a sdui example',
-            ),
-          ],
+          children: widget.components
+              .map((component) => component.render())
+              .toList(),
         ),
       ),
       bottomNavigationBar: ElevatedButton(
-        child: Text("Exit with result OK"),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.grey
+        ),
+        child: Text("Hi " + widget.username + ". Click to exit with callback"),
         onPressed: () async {
           try {
-            final String result = await platform.invokeMethod('exit', "Bye " + widget.username);
-            //return result;
-            debugPrint('Result: $result ');
+            await platform.invokeMethod('exit', "Bye " + widget.username);
           } on PlatformException catch (e) {
             debugPrint("Error: '${e.message}'.");
           }
