@@ -10,16 +10,11 @@ import androidx.annotation.Nullable;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugins.GeneratedPluginRegistrant;
 
-public class EmbeddingFlutterActivity extends FlutterActivity {
+public class EmbeddingFlutterActivity extends FlutterActivity implements FlutterEngineBuilder.Listener {
 
     private static final String EXTRA_INITIAL_ROUTE = "EXTRA_INITIAL_ROUTE";
 
-    private final String PLATFORM_CHANNEL = "platformChannel";
-
-    private MethodChannel methodChannel;
     private String initialRoute;
 
     public static Intent createIntent(Context context, String route) {
@@ -42,24 +37,19 @@ public class EmbeddingFlutterActivity extends FlutterActivity {
         return super.getInitialRoute();
     }
 
+    @Nullable
     @Override
-    public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-        super.configureFlutterEngine(flutterEngine);
-
-        GeneratedPluginRegistrant.registerWith(flutterEngine);
-        
-        methodChannel = new MethodChannel(flutterEngine.getDartExecutor(), PLATFORM_CHANNEL);
-        methodChannel.setMethodCallHandler((call, result) -> {
-            if(call.method.equals("exit")){
-                Intent returnIntent = getIntent();
-                returnIntent.putExtra("data", call.arguments.toString());
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
-            else {
-                result.notImplemented();
-            }
-        });
+    public FlutterEngine provideFlutterEngine(@NonNull Context context) {
+        return new FlutterEngineBuilder(this)
+                .setListener(this)
+                .build();
     }
 
+    @Override
+    public void onReceiveExitCommand(String command, String data) {
+        Intent returnIntent = getIntent();
+        returnIntent.putExtra("data", data);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+    }
 }
