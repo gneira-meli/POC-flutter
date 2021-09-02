@@ -5,7 +5,7 @@ gradle.include ":flutter"
 gradle.project(":flutter").projectDir = new File(flutterProjectRoot, ".android/Flutter")
 
 gradle.include ":sdui_android"
-gradle.project(":sdui_android").projectDir = new File(flutterProjectRoot, ".android/sdui_android")
+gradle.project(":sdui_android").projectDir = new File(flutterProjectRoot, ".android/../sdui_android")
 
 def localPropertiesFile = new File(flutterProjectRoot, ".android/local.properties")
 def properties = new Properties()
