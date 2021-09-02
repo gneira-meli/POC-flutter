@@ -1,7 +1,12 @@
 package com.meli.flutter.sdui.sdui_module.host;
 
-import io.flutter.embedding.android.FlutterActivity;
+import com.meli.sdui.flutterandroid.EmbeddingFlutterActivity;
 
-public class MainActivity extends FlutterActivity {
+public class MainActivity extends EmbeddingFlutterActivity {
+
+    @Override
+    public String getInitialRoute() {
+        return "/home?user=pepe";
+    }
 
 }

@@ -33,5 +33,5 @@ android {
 buildDir = new File(rootProject.projectDir, "../build/host")
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':flutter')
+    implementation project(path: ':sdui_android')
 }
