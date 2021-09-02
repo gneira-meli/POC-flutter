@@ -14,10 +14,17 @@ buildscript {
 }
 
 allprojects {
+    String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
     repositories {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            url "$rootProject.projectDir/local_repository"
+        }
+        maven {
+            url "$storageUrl/download.flutter.io"
+        }
     }
 }
 

@@ -17,6 +17,9 @@ android {
     }
 
     buildTypes {
+        profile {
+            initWith debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -43,6 +46,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation project(path: ':sdui_android')
+    debugImplementation('android_generated:sdui_android_debug:1.0')
+    profileImplementation('android_generated:sdui_android_profile:1.0')
+    releaseImplementation('android_generated:sdui_android_release:1.0')
+
+    debugImplementation 'com.meli.flutter.sdui.sdui_module:flutter_debug:1.0'
+    profileImplementation 'com.meli.flutter.sdui.sdui_module:flutter_profile:1.0'
+    releaseImplementation 'com.meli.flutter.sdui.sdui_module:flutter_release:1.0'
 
 }
