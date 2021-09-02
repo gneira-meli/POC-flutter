@@ -1,18 +1,18 @@
 //
 //  EmbeddingFlutterViewController.swift
-//  TestApp
+//  SduiLib
 //
-//  Created by Gabriel Fernando Neira Bermudez on 31/08/21.
+//  Created by Gabriel Fernando Neira Bermudez on 1/09/21.
 //
 
 import UIKit
 import Flutter
 
-class EmbeddingFlutterViewController: UIViewController {
+public class EmbeddingFlutterViewController: UIViewController {
 
-    var route : String?
+    public var route : String?
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
                 
         let controller = FlutterViewController(

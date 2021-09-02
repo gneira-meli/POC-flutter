@@ -1,15 +1,9 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
-
-flutter_application_path = '../sdui_module'
-load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+platform :ios, '14.5'
 
 target 'TestApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  install_flutter_engine_pod
-  install_flutter_plugin_pods(flutter_application_path)
-  install_flutter_application_pod(flutter_application_path)
-  # Pods for TestApp
+  pod 'SduiLib', :path => '../sdui_module/sdui_ios'
 
 end
