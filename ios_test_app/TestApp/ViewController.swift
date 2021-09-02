@@ -20,7 +20,12 @@ class ViewController: UIViewController {
 
     @IBAction func didClickButton(_ sender: Any) {
         
+        let username = textField.text ?? "";
+        let vc = EmbeddingFlutterViewController()
+        vc.route = String.init(format: "/home?user=%@", username)
         
+        self.navigationController?.pushViewController(vc, animated: true)
+    
     }
     
 }
